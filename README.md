@@ -63,4 +63,13 @@ This project uses **Mail.tm API** for temporary email generation and OTP fetchin
 The `EmailAPI` class handles:
 - Email account creation via Mail.tm API
 - Authentication token management
-- OTP extraction from email messages using regex pattern matching (4-8 digit codes)
+- OTP extraction from email messages using regex pattern matching (4-digit codes)
+
+## Source Files
+
+- **`ErnxAutomationTest.java`**: Main test class containing all test scenarios. Includes setup/teardown methods for WebDriver initialization and three test methods:
+  - `testRegisterAndCompleteProfile()`: Tests complete registration flow with OTP
+  - `testConfirmActivities()`: Tests activity confirmation functionality
+  - `testLogOut()`: Tests logout functionality
+
+- **`EmailAPI.java`**: Handles temporary email account creation and OTP retrieval using Mail.tm API. Uses OkHttp3 for REST API calls and Gson for JSON parsing. Automatically creates email accounts, authenticates, and extracts 4-digit OTP codes from received emails.

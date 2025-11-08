@@ -2,16 +2,45 @@ package com.ernx.automation;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import java.time.Duration;
 
 import static com.ernx.automation.ScriptHelper.*;
 
-public class LoginTest extends ErnxAutomation {
+public class ErnxAutomationTest {
+    
+    public WebDriver driver;
+    public WebDriverWait wait;
+
+    @BeforeClass
+    public void setup() {
+        log("Starting test execution...");
+        
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--start-maximized");
+        driver = new ChromeDriver(options);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        
+        driver.get("https://ernx-consumer.vercel.app/login");
+        log("Navigated to login page");
+    }
+    
+    @AfterClass
+    public void teardown() {
+        log("Closing browser...");
+        driver.quit();
+        log("Test execution completed");
+    }
 
     // This test verifies the complete registration flow with OTP authentication and profile setup
     // Steps:
@@ -37,7 +66,7 @@ public class LoginTest extends ErnxAutomation {
         enterTextByXPath(driver, "//input[@type='email']", testEmail);
         log("Entered email");
         
-        clickButtonByXPath(driver, "//button[contains(text(),'Next')]");
+        clickByXPath(driver, "//button[contains(text(),'Next')]");
         log("Clicked next button");
                 
         String otp = emailAPI.getOTP(60);
@@ -48,7 +77,7 @@ public class LoginTest extends ErnxAutomation {
         enterTextByXPath(driver, "//input[@type='number']", otp);
         log("Entered OTP");
         
-        clickButtonByXPath(driver, "//button");
+        clickByXPath(driver, "//button");
         log("Clicked submit button");
         
         wait.until(ExpectedConditions.urlContains("complete-profile"));
@@ -62,31 +91,31 @@ public class LoginTest extends ErnxAutomation {
         enterTextByXPath(driver, "//input[@name='last_name']", "User");
         log("Entered last name");
         
-        clickButtonByXPath(driver, "//button[contains(text(),'Next')]");
+        clickByXPath(driver, "//button[contains(text(),'Next')]");
         log("Clicked next button on complete profile page");
         
-        clickButtonByXPath(driver, "//button");
+        clickByXPath(driver, "//button");
         log("Clicked Add Yourself Or the Your Child button");
         
         enterTextByXPath(driver, "//input", "TestNickname");
         log("Entered nickname");
         
-        clickButtonByXPath(driver, "//img[@src='/genders/male.png']");
+        clickByXPath(driver, "//img[@src='/genders/male.png']");
         log("Clicked male gender image");
         
-        clickButtonByXPath(driver, "//button[contains(text(),'Next')]");
+        clickByXPath(driver, "//button[contains(text(),'Next')]");
         log("Clicked next button after gender selection");
         
-        clickButtonByXPath(driver, "//button[contains(text(),'Next')]");
+        clickByXPath(driver, "//button[contains(text(),'Next')]");
         log("Clicked next button on next page");
         
-        clickButtonByXPath(driver, "(//img[@alt='ERNX Dev test'])[1]");
+        clickByXPath(driver, "(//img[@alt='ERNX Dev test'])[1]");
         log("Clicked first element with ring class");
         
-        clickButtonByXPath(driver, "//button[contains(text(),'Next')]");
+        clickByXPath(driver, "//button[contains(text(),'Next')]");
         log("Clicked next button after ring element");
         
-        clickButtonByXPath(driver, "//button[contains(text(),'Finish')]");
+        clickByXPath(driver, "//button[contains(text(),'Finish')]");
         log("Clicked finish button");
         
         wait.until(ExpectedConditions.urlContains("game"));
@@ -108,7 +137,7 @@ public class LoginTest extends ErnxAutomation {
         log("Test: Testing brush teeth and other activities");
        
         // for scrolling page to bottom
-        clickButtonByXPath(driver, "//img[@src='/logo/logo2.png']");
+        clickByXPath(driver, "//img[@src='/logo/logo2.png']");
         Actions actions = new Actions(driver);
         actions.sendKeys(Keys.SPACE).perform();
         
@@ -132,13 +161,13 @@ public class LoginTest extends ErnxAutomation {
     public void testLogOut() {
         log("Test: Testing log out");
 
-        clickButtonByXPath(driver, "//span[contains(text(),'Settings')]");
+        clickByXPath(driver, "//span[contains(text(),'Settings')]");
         log("Clicked settings span");
 
-        clickButtonByXPath(driver, "//button[contains(text(),'Log Out')]");
+        clickByXPath(driver, "//button[contains(text(),'Log Out')]");
         log("Clicked log out button");
 
-        clickButtonByXPath(driver, "//button[contains(text(),'Yes, log out')]");
+        clickByXPath(driver, "//button[contains(text(),'Yes, log out')]");
         log("Clicked confirm button");
 
         wait.until(ExpectedConditions.urlContains("login"));
@@ -148,8 +177,8 @@ public class LoginTest extends ErnxAutomation {
     }
 
     private void clickPracticeButton(String practiceNumber, WebDriverWait wait){
-        clickButtonByXPath(driver, "//img[@alt='Practice " + practiceNumber + "']");
-        clickButtonByXPath(driver, "//button[contains(text(),'Yes')]");
+        clickByXPath(driver, "//img[@alt='Practice " + practiceNumber + "']");
+        clickByXPath(driver, "//button[contains(text(),'Yes')]");
         log("Clicked practice button: " + practiceNumber);
     }
     
