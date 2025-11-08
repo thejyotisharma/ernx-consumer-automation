@@ -1,6 +1,16 @@
 # ernx-consumer-automation
 
-Automation testing project for ernx-consumer application [ https://ernx-consumer.vercel.app/login ] using Selenium WebDriver and TestNG.
+Automation testing project for ernx-consumer application [ https://ernx-consumer.vercel.app ] using Selenium WebDriver and TestNG.
+
+## Test Scenarios
+
+This automation project covers three comprehensive test scenarios that validate the core functionality of the ernx-consumer application. The tests include new user creation, profile management, email OTP handling. Each test scenario is designed to verify critical user flows and ensure the application works as expected.
+
+1. **testRegisterAndCompleteProfile**: Tests the complete user registration and profile setup flow including OTP-based email verification, form validation for first name and last name fields, child profile creation with nickname and gender selection, and verification of successful redirect to the game page after profile completion.
+
+2. **testConfirmActivities**: Validates the activity confirmation functionality by scrolling to practice activities, confirming three practice sessions, and asserting that the progress score correctly updates to "6/100" after all activities are completed.
+
+3. **testLogOut**: Verifies the logout functionality by navigating to settings, clicking the logout button, confirming the logout action, and asserting that the user is successfully redirected back to the login page.
 
 ## How to Run
 
@@ -27,27 +37,6 @@ Automation testing project for ernx-consumer application [ https://ernx-consumer
    - Open the project in your IDE
    - Right-click on `src/test/resources/testng.xml`
    - Select "Run" or "Run as TestNG Suite"
-
-## Test Scenarios
-
-1. **testRegisterAndCompleteProfile**
-   - Generates a temporary email address
-   - Enters email and receives OTP
-   - Completes OTP verification
-   - Fills profile information (first name, last name)
-   - Adds a child profile (nickname, gender selection)
-   - Completes profile setup and verifies redirect to game page
-
-2. **testConfirmActivities**
-   - Scroll to end of page
-   - Confirms three practice activities
-   - Verifies progress shows "6/100" score
-
-3. **testLogOut**
-   - Clicks Settings
-   - Clicks Log Out button
-   - Confirms logout
-   - Verifies redirect to login page
 
 ## OTP API
 
